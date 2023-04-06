@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app1/customWidgets/text_field.dart';
 import 'package:auth_app1/customWidgets/material_button.dart';
@@ -11,6 +12,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +37,40 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 48.0,
               ),
-              InputField(hintText: "Enter Your Email",),
+              InputField(hintText: "Enter Your Email",controller: _emailController,),
               SizedBox(
                 height: 8,
               ),
-              InputField(hintText: "Enter Password"),
+              InputField(hintText: "Enter Password",controller: _passwordController,),
               SizedBox(
                 height: 24,
               ),
             Button(buttonText:"Login",
-                onPressed:(){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                onPressed:()async{
+                  final String email = _emailController.text.trim();
+                  final String password = _passwordController.text.trim();
+
+                  if (email.isEmpty || password.isEmpty) {
+                    return;
+                  }
+                  try {
+                    UserCredential userCredential =
+                    await _auth.signInWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+                    print('Logged in user: ${userCredential.user}');
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      print('No user found for that email.');
+                    } else if (e.code == 'wrong-password') {
+                      print('Wrong password provided for that user.');
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 }),
             ],
           ),

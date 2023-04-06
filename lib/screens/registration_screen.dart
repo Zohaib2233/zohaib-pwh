@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app1/customWidgets/text_field.dart';
 import 'package:auth_app1/customWidgets/material_button.dart';
@@ -10,6 +11,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,16 +37,58 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 48.0,
               ),
               InputField(
-                hintText: "Enter Your Email",
+                hintText: "Enter Your Email",controller: _emailController,
               ),
               SizedBox(
                 height: 8,
               ),
-              InputField(hintText: "Enter Password"),
+              InputField(hintText: "Enter Password", controller: _passwordController,),
               SizedBox(
                 height: 24,
               ),
-              Button(buttonText: "Register", onPressed: () {}),
+              Button(buttonText: "Register", onPressed: () async{
+                final String email = _emailController.text.trim();
+                final String password = _passwordController.text.trim();
+
+                if (email.isEmpty || password.isEmpty) {
+                  return;
+                }
+
+                if (password.length < 6) {
+                  showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        title: const Text('Password is weak'
+                    ),
+                    content: Text('Your password must be at least 6 characters long.'),
+                    actions: <Widget>[
+                    TextButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                    Navigator.of(context).pop();
+                    },),
+                    ],);
+                    },);
+
+                try {
+                  UserCredential userCredential =
+                  await _auth.createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+                  print('Registered user: ${userCredential.user}');
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    print('The password provided is too weak.');
+                  } else if (e.code == 'email-already-in-use') {
+                    print('The account already exists for that email.');
+                  }
+                } catch (e) {
+                  print(e);
+                }
+
+              }}),
             ],
           ),
         ),
