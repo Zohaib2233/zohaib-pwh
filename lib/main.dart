@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app1/screens/welcome_screen.dart';
+import 'screens/profile_Screen.dart';
 
 void main() async {
   print("init");
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.black54)
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(color: Colors.black54)
         )
       ),
       home: const WelcomeScreen(),

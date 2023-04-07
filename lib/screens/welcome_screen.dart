@@ -23,19 +23,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Container(
-                //   child: Image.asset('images/logo.png'),
-                //   height: 50.0,
-                // ),
-                const Text("Welcome",
+              children:const [
+
+                Text("Welcome",
                 style: TextStyle(
+                  color: Colors.lightBlue,
                   fontSize: 45.0,
                   fontWeight: FontWeight.w900,
                 ),)
               ],
             ),
-            SizedBox(
+            Column(
+              children: const [
+                Text("To"),
+                Text("Client information",
+                style: TextStyle(color: Colors.black,fontSize: 14,
+                ),),
+
+              ],
+            ),
+            const SizedBox(
               height: 48.0,
             ),
             Button(buttonText: "Login",
