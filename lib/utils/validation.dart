@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
+
 String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter an email address.';
   }
-  if (!value.contains('@')) {
+  if (!value.contains('@') || !value.contains('.com')) {
     return 'Please enter a valid email address.';
   }
   return null;
@@ -17,3 +19,4 @@ String? validatePassword(String? value) {
   }
   return null;
 }
+

@@ -19,6 +19,26 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email address.';
+    }
+    if (!value.contains('@')) {
+      return 'Please enter a valid email address.';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password.';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters long.';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,20 +62,20 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               InputField(hintText: "Enter Your Email",
                   controller: _emailController,
-              isValidate: validateEmail,
+              isValidate: _validateEmail,
               isPassword: false),
               SizedBox(
                 height: 8,
               ),
               InputField(hintText: "Enter Password",controller: _passwordController,
-                  isValidate: validatePassword,
+                  isValidate: _validatePassword,
                   isPassword: true),
               SizedBox(
                 height: 24,
               ),
             Button(buttonText:"Login",
                 onPressed:()async{
-                  if (_formKey.currentState!.validate()) {
+                  // if (_formKey.currentState!.validate()) {
                   final String email = _emailController.text.trim();
                   final String password = _passwordController.text.trim();
 
@@ -80,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   } catch (e) {
                     print(e);
                   }
-                }}),
+                }),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

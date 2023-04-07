@@ -17,6 +17,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
 
   @override
@@ -43,17 +44,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 48.0,
                 ),
                 InputField(
-                  hintText: "Enter First Name",
+                  hintText: "Enter Your Name",
                   isPassword: false,
 
                 ),
-                SizedBox(
-                  height: 8,
-                ),
-                InputField(
-                  hintText: "Enter Last Name",
-                  isPassword: false,
-                ),
+
                 SizedBox(
                   height: 8,
                 ),
@@ -71,6 +66,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     controller: _passwordController,
                     isValidate: validatePassword,
                     isPassword: true),
+                SizedBox(
+                    height: 8,
+                ),
+                InputField(
+                  hintText: "Enter Confirm Password",
+                  isPassword: true,
+                  controller: _confirmPasswordController,
+                  isValidate: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
                 SizedBox(
                   height: 24,
                 ),
