@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auth_app1/customWidgets/text_field.dart';
 import 'package:auth_app1/customWidgets/material_button.dart';
 import 'package:auth_app1/screens/profile_Screen.dart';
+import 'package:auth_app1/screens/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -37,11 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 48.0,
               ),
-              InputField(hintText: "Enter Your Email",controller: _emailController,),
+              InputField(hintText: "Enter Your Email",controller: _emailController,
+              isPassword: false),
               SizedBox(
                 height: 8,
               ),
-              InputField(hintText: "Enter Password",controller: _passwordController,),
+              InputField(hintText: "Enter Password",controller: _passwordController,
+                  isPassword: true),
               SizedBox(
                 height: 24,
               ),
@@ -72,6 +75,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     print(e);
                   }
                 }),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don't Have Account?"),
+                  TextButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder:
+                      (context)=>RegistrationScreen()));
+                  }, child: Text("Register"))
+                ],
+              ),
             ],
           ),
         ),

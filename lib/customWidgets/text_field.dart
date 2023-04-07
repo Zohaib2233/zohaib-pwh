@@ -5,9 +5,11 @@ class InputField extends StatelessWidget {
     super.key,
     @required this.hintText,
     this.controller,
+    required this.isPassword,
   });
 
   final String? hintText;
+  final bool isPassword;
   final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,10 @@ class InputField extends StatelessWidget {
       onChanged: (value){
 
       },
+      style: TextStyle(color: Colors.black),
       controller: controller,
+
+      obscureText: isPassword ? true : false,
       decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.black54),
