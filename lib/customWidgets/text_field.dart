@@ -6,19 +6,23 @@ class InputField extends StatelessWidget {
     @required this.hintText,
     this.controller,
     required this.isPassword,
+    this.isValidate,
   });
 
   final String? hintText;
   final bool isPassword;
   final TextEditingController? controller;
+  final String? Function(String? value)? isValidate;
+
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: (value){
 
       },
       style: TextStyle(color: Colors.black),
       controller: controller,
+      validator: isValidate,
 
       obscureText: isPassword ? true : false,
       decoration: InputDecoration(
