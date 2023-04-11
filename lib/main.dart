@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app1/screens/welcome_screen.dart';
+import 'package:get_storage/get_storage.dart';
 import 'screens/profile_Screen.dart';
 
 void main() async {
   print("init");
-
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   print("WidgetsFlutterBinding.ensureInitialized()");
   await Firebase.initializeApp();

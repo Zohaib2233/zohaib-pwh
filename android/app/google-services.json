@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "327151267035",
-    "project_id": "auth-app1-99c97",
-    "storage_bucket": "auth-app1-99c97.appspot.com"
+    "project_number": "26332726012",
+    "project_id": "client-info-d9b08",
+    "storage_bucket": "client-info-d9b08.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:327151267035:android:98f46c7cd4ab30cbf2f0fe",
+        "mobilesdk_app_id": "1:26332726012:android:db885eb1250bf184128d79",
         "android_client_info": {
-          "package_name": "com.example.auth_app1"
+          "package_name": "com.client.info"
         }
       },
       "oauth_client": [
         {
-          "client_id": "327151267035-fj2pe44cilcvrb2ot1pj8j6n5sr4bd5s.apps.googleusercontent.com",
+          "client_id": "26332726012-u6nlsiguaefsvvnuaeigf901npellnta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.client.info",
+            "certificate_hash": "f73d6255c3a4c005d1484168f9f579b54ec4a634"
+          }
+        },
+        {
+          "client_id": "26332726012-r11v291lkt8t0uo0ab19dmo387hj0fg1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB3Os6tFVm22nbAFlKKOJ_fJF__MQ02dp0"
+          "current_key": "AIzaSyCZOPyRpTQR2OhrCxPa6UYphrhJa7-yuls"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "327151267035-fj2pe44cilcvrb2ot1pj8j6n5sr4bd5s.apps.googleusercontent.com",
+              "client_id": "26332726012-r11v291lkt8t0uo0ab19dmo387hj0fg1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

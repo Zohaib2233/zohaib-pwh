@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.auth_app1">
+    package="com.client.info">
    <application
         android:label="auth_app1"
         android:name="${applicationName}"

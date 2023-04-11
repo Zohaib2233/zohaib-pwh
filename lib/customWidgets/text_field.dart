@@ -20,6 +20,7 @@ class InputField extends StatelessWidget {
       onChanged: (value){
 
       },
+
       style: TextStyle(color: Colors.black),
       controller: controller,
       validator: isValidate,

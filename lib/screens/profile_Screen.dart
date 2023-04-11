@@ -1,6 +1,11 @@
+
+import 'package:auth_app1/screens/edit_profile_screen.dart';
+import 'package:auth_app1/screens/home_screen.dart';
 import 'package:auth_app1/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,6 +15,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  int _selectedIndex = 0;
+  static const List<Widget> screens = <Widget>[
+    HomeScreen(),
+   EditProfileScreen(),
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -20,183 +35,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-    length: 2,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(title: Text("Profile Screen"),
+        length: 2,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text("Main Screen"),
             actions: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
-                  color: Colors.blue),
-              child: TextButton(
-                onPressed: (){
-                  signOut();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-                },
-                child: Text("Log Out",style: TextStyle(color: Colors.white)),
-              ),
-            ),
-          ),
-        ],backgroundColor: Colors.lightBlueAccent),
-        body: Column(
-          children: [
-            TabBar(
-              labelColor: Colors.purple,
-              tabs: [
-              Tab(
-                text: "Show All",
-                icon: Icon(Icons.all_inbox),
-              ),
-              Tab(
-                text: "Show Favurites",
-                icon: Icon(Icons.favorite),
-              ),
-            ],
-            indicatorColor: Colors.purple,),
-            Expanded(
-              child: TabBarView(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.greenAccent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30,
-                            child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.greenAccent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30,
-                            child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.greenAccent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30,
-                            child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.greenAccent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30,
-                            child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.greenAccent,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 30,
-                            child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                          ),
-                        ),
-                      ),
-
-                    ],
-
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child: TextButton(
+                    onPressed: () {
+                      GetStorage().remove("isLoggedIn");
+                      signOut();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: const Text("Log Out",
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.purpleAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.purpleAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.purpleAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.purpleAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      color: Colors.purpleAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          child: Text("Item 1",style:TextStyle(color: Colors.black),),
-                        ),
-                      ),
-                    ),
+              ),
+            ],
+            backgroundColor: Colors.lightBlueAccent,
+          ),
+          body: screens[_selectedIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.lightBlueAccent,
+            selectedItemColor: Colors.white,
+           currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.edit), label: "Edit Profile"),
+            ],
 
-                  ],
-
-                )
-              ]),
-            )
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.lightBlueAccent,
-          selectedItemColor: Colors.white,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.settings),label: "Setting"),
-
-          ],
-        ),
-    ));}
+          ),
+        ));
+  }
 }

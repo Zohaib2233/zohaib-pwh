@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auth_app1/customWidgets/text_field.dart';
@@ -18,7 +19,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-
+  final TextEditingController _firstname = TextEditingController();
+  final TextEditingController _lastname = TextEditingController();
+  final TextEditingController _country = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +47,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 48.0,
                 ),
                 InputField(
-                  hintText: "Enter Your Name",
+                  controller: _firstname,
+                  hintText: "Enter Your First Name",
                   isPassword: false,
-
                 ),
-
+                SizedBox(
+                  height: 8,
+                ),
+                InputField(
+                  controller: _lastname,
+                  hintText: "Enter Your Last Name",
+                  isPassword: false,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                InputField(
+                  controller: _country,
+                  hintText: "Enter Your Country",
+                  isPassword: false,
+                ),
                 SizedBox(
                   height: 8,
                 ),
@@ -67,7 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     isValidate: validatePassword,
                     isPassword: true),
                 SizedBox(
-                    height: 8,
+                  height: 8,
                 ),
                 InputField(
                   hintText: "Enter Confirm Password",
@@ -89,36 +107,49 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Button(
                     buttonText: "Register",
                     onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final String email = _emailController.text.trim();
-                      final String password = _passwordController.text.trim();
+                      if (_formKey.currentState!.validate()) {
+                        final String email = _emailController.text.trim();
+                        final String password = _passwordController.text.trim();
 
-                      if (email.isEmpty || password.isEmpty) {
-                        return;
-                      }
-
-                      try {
-                        UserCredential userCredential =
-                            await _auth.createUserWithEmailAndPassword(
-                          email: email,
-                          password: password,
-                        );
-                        print('Registered user: ${userCredential.user}');
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('The account already exists for that email.');
+                        if (email.isEmpty || password.isEmpty) {
+                          return;
                         }
-                      } catch (e) {
-                        print(e);
+
+                        try {
+                          UserCredential userCredential =
+                              await _auth.createUserWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
+                          if (userCredential.user?.uid != null) {
+                            await addData(userCredential.user?.uid ?? "",
+                                _firstname.text, _lastname.text, _country.text);
+                          }
+                          print('Registered user: ${userCredential.user}');
+
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()),
+                              (route) => false);
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            print('The password provided is too weak.');
+                          } else if (e.code == 'email-already-in-use') {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.red,
+                              content: const Text(
+                                'The account already exists for that email.',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              duration: const Duration(seconds: 1),
+                            ));
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       }
-                    }}),
+                    }),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -140,5 +171,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> addData(
+      String userId, String first_name, String last_name, String country) {
+    // Call the Firestore reference to add data
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('data')
+        .add({
+          'first_name': first_name,
+          'last_name': last_name,
+          'country': country
+        })
+        .then((value) => print("Data Added"))
+        .catchError((error) => print("Failed to add data: $error"));
   }
 }
