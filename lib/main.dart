@@ -4,12 +4,11 @@ import 'package:auth_app1/screens/welcome_screen.dart';
 import 'screens/profile_Screen.dart';
 
 void main() async {
-  print("init");
 
   WidgetsFlutterBinding.ensureInitialized();
-  print("WidgetsFlutterBinding.ensureInitialized()");
+
   await Firebase.initializeApp();
-  print("await Firebase.initializeApp()");
+
   runApp(const MyApp());
 }
 
