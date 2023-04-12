@@ -18,24 +18,34 @@ class _HomeScreenState extends State<HomeScreen> {
   List<UserObject> userList = [];
   List<UserObject> userFavList = [];
   bool isFav = false;
+  bool isLoading = false;
+
+
   Future<void> fetchPost(Function callBack) async {
+
+    isLoading = true;
     final response = await http.get(Uri.parse('https://my.api.mockaroo.com/users.json?key=cae17ac0'));
     if (response.statusCode == 200) {
       print("object");
       List jsonList = json.decode(response.body.toString()) as List;
 
-      List myList = jsonList
-          .map((jsonElement) => UserObject.fromJson(jsonElement))
+      List myList = jsonList.map((jsonElement) => UserObject.fromJson(jsonElement))
           .toList();
 
       setState(() {
         userList = myList as List<UserObject>;
       });
+      isLoading = false;
     } else {
       // If the response was umexpected, throw an error.s
+      isLoading = false;
       throw Exception('Failed to load Data');
+
     }
   }
+
+
+
 
   @override
   void initState() {
@@ -57,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        body: Column(
+        body:  isLoading?Center(child: CircularProgressIndicator()):Column(
           children: [
             const TabBar(
               labelColor: Colors.purple,
@@ -73,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
               indicatorColor: Colors.purple,
             ),
+
             Expanded(
               child: TabBarView(children: [
                 ListView.builder(

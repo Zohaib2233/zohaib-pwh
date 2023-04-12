@@ -64,13 +64,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   height: 48.0,
                 ),
                 InputField(
-                  hintText: "Enter Your Name",
-                  isPassword: false,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                InputField(
                   hintText: "Enter Your Email",
                   controller: _firstNameController,
                   isPassword: false,
