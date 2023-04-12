@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auth_app1/utils/utils.dart';
 
 class Button extends StatelessWidget {
   const Button({
@@ -12,6 +13,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Material(
@@ -21,7 +23,7 @@ class Button extends StatelessWidget {
         child: MaterialButton(
           onPressed: onPressed,
           minWidth: 200.0,
-          height: 42.0,
+          height: height(context)*0.07,
           child: Text(
               buttonText!
           ),

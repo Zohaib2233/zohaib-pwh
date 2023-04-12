@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: Text("Main Screen"),
             actions: [
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width/100),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

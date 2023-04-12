@@ -38,15 +38,13 @@ class _DetailScreenState extends State<DetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "First Name :"+
-                              "${widget.user?.firstName??""}",
-                          style: TextStyle(color: Colors.black),
+                          "First Name :${widget.user?.firstName??""}",
+                          style: const TextStyle(color: Colors.black),
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "Last  Name :"+
-                              "${widget.user?.lastName??""}",
-                          style: TextStyle(color: Colors.black),
+                          "Last  Name : ${widget.user?.lastName??""}",
+                          style: const TextStyle(color: Colors.black),
                         ),
 
                       ],
@@ -62,7 +60,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                         SizedBox(width: 10,),
                         Text(
-                          "Email :"+
+                          "Email :"
                               "${widget.user?.email??""}",
                           style: TextStyle(color: Colors.black),
                         ),

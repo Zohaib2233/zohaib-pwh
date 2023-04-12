@@ -1,3 +1,4 @@
+import 'package:auth_app1/screens/welcome_screen.dart';
 import 'package:auth_app1/utils/validation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,8 +7,10 @@ import 'package:auth_app1/customWidgets/text_field.dart';
 import 'package:auth_app1/customWidgets/material_button.dart';
 import 'package:auth_app1/screens/profile_Screen.dart';
 import 'package:auth_app1/screens/registration_screen.dart';
+
 import 'package:get_storage/get_storage.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:auth_app1/utils/utils.dart';
+import 'package:toast/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -46,12 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -62,14 +64,14 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: 100,
+                height: height(context) * 0.15,
               ),
               Container(
-                height: 200.0,
+                height: height(context) * 0.3,
                 child: Image.asset('images/logo.png'),
               ),
               SizedBox(
-                height: 48.0,
+                height: height(context) * 0.07,
               ),
               InputField(
                   hintText: "Enter Your Email",
@@ -85,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   isValidate: _validatePassword,
                   isPassword: true),
               SizedBox(
-                height: 24,
+                height: height(context) * 0.03,
               ),
               Button(
                   buttonText: "Login",
@@ -98,8 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       return;
                     }
                     try {
-                      GetStorage().write("logInUserEmail",email);
-                      GetStorage().write("logInUserPassword",password);
+                      GetStorage().write("logInUserEmail", email);
+                      GetStorage().write("logInUserPassword", password);
                       UserCredential userCredential =
                           await _auth.signInWithEmailAndPassword(
                         email: email,
@@ -113,11 +115,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const ProfileScreen()));
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
+                        Toast.show("No user found for that email.",duration: Toast.lengthLong);
                         print('No user found for that email.');
                       } else if (e.code == 'wrong-password') {
+                        Toast.show("Wrong password provided for that user.",duration: Toast.lengthLong);
                         print('Wrong password provided for that user.');
                       }
                     } catch (e) {
+                      Toast.show(e.toString(),duration: Toast.lengthLong);
                       print(e);
                     }
                   }),
@@ -142,6 +147,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-
 }

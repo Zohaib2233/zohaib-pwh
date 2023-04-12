@@ -4,6 +4,7 @@ import 'package:auth_app1/screens/login_screen.dart';
 import 'package:auth_app1/screens/registration_screen.dart';
 import 'package:auth_app1/customWidgets/material_button.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:auth_app1/utils/utils.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -29,8 +30,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.white,
       body: Padding(
@@ -41,28 +44,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:const [
+              children: [
 
                 Text("Welcome",
-                style: TextStyle(
+                style:TextStyle(
                   color: Colors.lightBlue,
-                  fontSize: 45.0,
+                  fontSize: width(context)*0.15,
                   fontWeight: FontWeight.w900,
                 ),)
               ],
             ),
             Column(
-              children: const [
+              children:  [
                 Text("To"),
                 Text("Client information",
-                style: TextStyle(color: Colors.black,fontSize: 14,
+                style: TextStyle(color: Colors.black,fontSize: width(context)*0.05,
                 ),),
 
               ],
             ),
-            const SizedBox(
-              height: 48.0,
-            ),
+            SizedBox(height: height(context)*0.08,),
             Button(buttonText: "Login",
             onPressed: (){
               pushAndRemoveUntil(context, const LoginScreen(), false);
@@ -77,3 +78,5 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
+
+

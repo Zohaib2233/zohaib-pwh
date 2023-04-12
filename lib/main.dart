@@ -5,12 +5,12 @@ import 'package:get_storage/get_storage.dart';
 import 'screens/profile_Screen.dart';
 
 void main() async {
-  print("init");
+
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  print("WidgetsFlutterBinding.ensureInitialized()");
+
   await Firebase.initializeApp();
-  print("await Firebase.initializeApp()");
+
   runApp(const MyApp());
 }
 
