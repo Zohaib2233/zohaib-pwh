@@ -61,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  height: 60,
+                  height: 20,
                 ),
                 Container(
                   height: height(context) * 0.3,

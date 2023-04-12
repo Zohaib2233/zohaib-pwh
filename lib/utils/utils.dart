@@ -10,4 +10,6 @@ double width(context){
   return width;
 }
 
+TextStyle ktextStyle = const TextStyle(color: Colors.white,fontSize: 16);
+
 

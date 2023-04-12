@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auth_app1/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -65,10 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const TabBar(
               labelColor: Colors.purple,
+              indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(color: Colors.blue)
+              ),
+
               tabs: [
                 Tab(
                   text: "Show All",
                   icon: Icon(Icons.all_inbox),
+
                 ),
                 Tab(
                   text: "Show Favurites",
@@ -99,8 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Card(
+
                                 margin: EdgeInsets.all(10),
-                                color: Colors.greenAccent,
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+
+                                color: Colors.lightBlueAccent,
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Container(
@@ -114,8 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "First Name :" +
                                               "${userList?[index].firstName}",
-                                          style: const TextStyle(
-                                              color: Colors.black),
+                                          style: ktextStyle,
                                         ),
                                         const SizedBox(
                                           width: 10,
@@ -123,11 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "Gender :" +
                                               "${userList?[index].gender}",
-                                          style: const TextStyle(
-                                              color: Colors.black),
+                                          style: ktextStyle,
                                         ),
-                                        IconButton(
-                                            onPressed: () {
+                                        GestureDetector(
+                                            onTap: () {
                                               UserObject? user =
                                               userList?[index];
                                               if (user != null) {
@@ -144,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                               });
                                             },
-                                            icon: isFav
+                                            child: isFav
                                                 ? const Icon(
                                               Icons.favorite,
                                               color: Colors.red,
@@ -183,10 +193,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
+
                             children: [
                               Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                elevation: 5,
                                 margin: EdgeInsets.all(10),
-                                color: Colors.greenAccent,
+                                color: Colors.lightBlueAccent,
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Container(
@@ -201,8 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "First Name :" +
                                               "${userFavList?[index]
                                                   .firstName}",
-                                          style: const TextStyle(
-                                              color: Colors.black),
+                                          style: ktextStyle,
                                         ),
                                         const SizedBox(
                                           width: 10,
@@ -210,11 +224,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "Gender :" +
                                               "${userFavList?[index].gender}",
-                                          style: const TextStyle(
-                                              color: Colors.black),
+                                          style: ktextStyle,
                                         ),
-                                        IconButton(
-                                            onPressed: () {
+                                        GestureDetector(
+                                            onTap: () {
                                               UserObject? user =
                                               userList?[index];
                                               if (user != null) {
@@ -227,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 }
                                               }
                                             },
-                                            icon: const Icon(
+                                            child: const Icon(
                                               Icons.favorite,
                                               color: Colors.red,
                                               size: 24,
