@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'dart:convert';
-import 'package:fl_chart/fl_chart.dart';
-
 
 
 import 'package:http/http.dart' as http;
@@ -27,7 +25,11 @@ class GenderChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blueGrey,Colors.lightBlueAccent]
+        )
+      ),
       child: SfCartesianChart(
         title: ChartTitle(text: "Graph Chart",textStyle: TextStyle(
           color: Colors.white
@@ -35,7 +37,9 @@ class GenderChart extends StatelessWidget {
         plotAreaBackgroundColor: Colors.white,
 
 
-        primaryXAxis: CategoryAxis(),
+
+        primaryXAxis: CategoryAxis(title: AxisTitle(text: "Gender")),
+        primaryYAxis: NumericAxis(title: AxisTitle(text: "Total Count")),
         series: <ColumnSeries<GenderData, String>>[
           ColumnSeries<GenderData, String>(
             dataSource: data,
@@ -77,9 +81,6 @@ Future<List<GenderData>> fetchData() async {
     throw Exception('Failed to fetch data');
   }
 }
-
-
-
 
 
 class GraphScreen extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:auth_app1/customWidgets/material_button.dart';
 import 'package:auth_app1/customWidgets/text_field.dart';
 import 'package:auth_app1/utils/validation.dart';
+import 'package:auth_app1/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   height: 60,
                 ),
                 Container(
-                  height: 200.0,
+                  height: height(context) * 0.3,
                   child: Image.asset('images/logo.png'),
                 ),
                 SizedBox(
