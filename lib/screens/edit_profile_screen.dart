@@ -13,10 +13,16 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+
+  bool isLoad = false;
   @override
   void initState() {
+    print("Isloading");
+    isLoad = true;
     final User user = FirebaseAuth.instance.currentUser!;
     getData(user.uid);
+    isLoad = false;
+    print("IsloadingOFF");
     super.initState();
   }
 
@@ -46,7 +52,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: SingleChildScrollView(
+        child: isLoad?CircularProgressIndicator():SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
@@ -65,16 +71,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 InputField(
                   hintText: "Enter Your Name",
+                  controller: _firstNameController,
                   isPassword: false,
                 ),
                 SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  hintText: "Enter Your Email",
-                  controller: _firstNameController,
-                  isPassword: false,
-                ),
+
                 SizedBox(
                   height: 8,
                 ),

@@ -41,6 +41,9 @@ dependencies:
   get_storage: ^2.1.1
   http: ^0.13.5
   toast: ^0.3.0
+  fl_chart: ^0.35.0
+  syncfusion_flutter_charts: ^21.1.39
+
 
 dev_dependencies:
   flutter_test:

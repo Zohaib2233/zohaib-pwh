@@ -18,7 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<UserObject> userList = [];
   List<UserObject> userFavList = [];
   bool isFav = false;
+  bool isLoad = false;
+
   Future<void> fetchPost(Function callBack) async {
+    isLoad = true;
     final response = await http.get(Uri.parse('https://my.api.mockaroo.com/users.json?key=cae17ac0'));
     if (response.statusCode == 200) {
       print("object");
@@ -30,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         userList = myList as List<UserObject>;
+        isLoad = false;
       });
     } else {
       // If the response was umexpected, throw an error.s
@@ -73,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
               indicatorColor: Colors.purple,
             ),
-            Expanded(
+            isLoad?Expanded(child: Center(child: CircularProgressIndicator())):Expanded(
               child: TabBarView(children: [
                 ListView.builder(
                     itemCount: userList?.length ?? 0,

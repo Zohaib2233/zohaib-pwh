@@ -5,6 +5,7 @@ import 'package:auth_app1/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:auth_app1/screens/graph_screen.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   static const List<Widget> screens = <Widget>[
     HomeScreen(),
    EditProfileScreen(),
+    GraphScreen(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -74,6 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.edit), label: "Edit Profile"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.show_chart), label: "Show Graph"),
             ],
 
           ),
